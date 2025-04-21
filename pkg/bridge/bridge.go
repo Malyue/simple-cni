@@ -3,7 +3,7 @@ package bridge
 import (
 	"errors"
 	"fmt"
-	current "github.com/containernetworking/cni/pkg/types/100"
+	current "github.com/containernetworking/cni/pkg/types/040"
 	"github.com/containernetworking/plugins/pkg/utils/sysctl"
 	"github.com/vishvananda/netlink"
 	"syscall"

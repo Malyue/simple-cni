@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/containernetworking/cni/pkg/skel"
-	current "github.com/containernetworking/cni/pkg/types/100"
+	"github.com/containernetworking/cni/pkg/types"
+	current "github.com/containernetworking/cni/pkg/types/040"
 	"github.com/containernetworking/cni/pkg/version"
 	"github.com/containernetworking/plugins/pkg/ns"
 	bv "github.com/containernetworking/plugins/pkg/utils/buildversion"
@@ -38,7 +39,21 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return fmt.Errorf("failed to setup veth : %v", err)
 	}
 
-	return nil
+	result := &current.Result{
+		CNIVersion: current.ImplementedSpecVersion,
+		Interfaces: []*current.Interface{
+			brInterface,
+			hostVeth,
+			contVeth,
+		},
+		//Interfaces: []*current.Interface{
+		//	brInterface,
+		//	hostVeth,
+		//	contVeth,
+		//},
+	}
+
+	return types.PrintResult(result, current.ImplementedSpecVersion)
 
 	// allocate ip from ipam
 	// valid ipam type
@@ -64,7 +79,7 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return err
 	}
 
-	result := &current.Result{
+	result = &current.Result{
 		CNIVersion: current.ImplementedSpecVersion,
 		Interfaces: []*current.Interface{
 			brInterface,
@@ -80,14 +95,12 @@ func cmdAdd(args *skel.CmdArgs) error {
 	if err := netns.Do(func(_ ns.NetNS) error {
 		_, _ = sysctl.Sysctl(fmt.Sprintf("net/ipv4/conf/%s/arp_notify", args.IfName), "1")
 
-		// Add the IP to the interface
-		return ipam.ConfigureIface(args.IfName, result)
+		return nil
 	}); err != nil {
 		return err
 	}
 
 	return nil
-
 }
 
 func cmdDel(args *skel.CmdArgs) error {
@@ -105,5 +118,5 @@ func main() {
 		Del:   cmdDel,
 		//Status: cmdStatus,
 		/* FIXME GC */
-	}, version.All, bv.BuildString("bridge"))
+	}, version.All, bv.BuildString("bridge_per"))
 }

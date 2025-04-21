@@ -20,4 +20,9 @@ $(PLUGINS):
 clean:
 	@rm -rf $(BIN_DIR)
 
+cp:
+	make bridge
+	mv bin/bridge bin/bridge_per
+	minikube cp bin/bridge_per /opt/cni/bin/
+
 .PHONY: all $(PLUGINS) clean

@@ -2,7 +2,7 @@ package veth
 
 import (
 	"fmt"
-	current "github.com/containernetworking/cni/pkg/types/100"
+	current "github.com/containernetworking/cni/pkg/types/040"
 	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/ns"
 	"github.com/vishvananda/netlink"
