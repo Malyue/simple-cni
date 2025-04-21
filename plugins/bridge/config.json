@@ -1,0 +1,19 @@
+{
+  "cniVersion": "0.4.0",
+  "name": "bridge_per",
+  "type": "bridge_per",
+  "mac": "02:11:22:33:44:55",
+  "bridge": "bridge_per_1",
+  "mtu": 1500,
+  "isDefaultGateway": true,
+  "ipMasq": true,
+  "ipam": {
+    "type": "host-local",
+    "subnet": "10.255.0.0/16",
+    "routes": [
+      {
+        "dst": "0.0.0.0/0"
+      }
+    ]
+  }
+}

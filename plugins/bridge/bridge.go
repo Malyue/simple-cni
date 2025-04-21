@@ -6,6 +6,7 @@ import (
 	current "github.com/containernetworking/cni/pkg/types/100"
 	"github.com/containernetworking/cni/pkg/version"
 	"github.com/containernetworking/plugins/pkg/ns"
+	bv "github.com/containernetworking/plugins/pkg/utils/buildversion"
 	"github.com/containernetworking/plugins/pkg/utils/sysctl"
 	"simple-cni/pkg/bridge"
 	"simple-cni/pkg/ipam"
@@ -36,6 +37,8 @@ func cmdAdd(args *skel.CmdArgs) error {
 	if err != nil {
 		return fmt.Errorf("failed to setup veth : %v", err)
 	}
+
+	return nil
 
 	// allocate ip from ipam
 	// valid ipam type
@@ -83,6 +86,16 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return err
 	}
 
+	return nil
+
+}
+
+func cmdDel(args *skel.CmdArgs) error {
+	return nil
+}
+
+func cmdCheck(args *skel.CmdArgs) error {
+	return nil
 }
 
 func main() {

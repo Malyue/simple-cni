@@ -1,21 +1,14 @@
 package main
 
-import (
-	"encoding/json"
-	"github.com/containernetworking/cni/pkg/skel"
-	"github.com/containernetworking/cni/pkg/version"
-	"sync"
-)
-
-func cmdAdd(args *skel.CmdArgs) error {
-
-}
-func main() {
-	skel.PluginMainFuncs(skel.CNIFuncs{
-		Add:   cmdAdd,
-		Check: cmdCheck,
-		Del:   cmdDel,
-		/* FIXME GC */
-		/* FIXME Status */
-	}, version.All, bv.BuildString("host-local"))
-}
+//func cmdAdd(args *skel.CmdArgs) error {
+//
+//}
+//func main() {
+//	skel.PluginMainFuncs(skel.CNIFuncs{
+//		Add:   cmdAdd,
+//		Check: cmdCheck,
+//		Del:   cmdDel,
+//		/* FIXME GC */
+//		/* FIXME Status */
+//	}, version.All, bv.BuildString("host-local"))
+//}

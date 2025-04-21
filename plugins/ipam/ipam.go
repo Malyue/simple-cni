@@ -21,8 +21,9 @@ func Get(t ipam2.Type) (*IPAM, error) {
 		return nil, errors.New("The type is invalid")
 	}
 
-	switch t {
-	case ipam2.HostLocal:
-		return nil, nil
-	}
+	return nil, nil
+	//switch t {
+	//case ipam2.HostLocal:
+	//	return nil, nil
+	//}
 }

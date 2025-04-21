@@ -4,11 +4,6 @@ import (
 	"context"
 	"fmt"
 	current "github.com/containernetworking/cni/pkg/types/100"
-	"github.com/containernetworking/plugins/pkg/ip"
-	"github.com/containernetworking/plugins/pkg/utils/sysctl"
-	"github.com/vishvananda/netlink"
-	"net"
-	"os"
 	"time"
 
 	"github.com/containernetworking/cni/pkg/invoke"
@@ -31,7 +26,6 @@ func ExecStatus(plugin string, netconf []byte) error {
 	return invoke.DelegateStatus(context.TODO(), plugin, netconf, nil)
 }
 
-
 const (
 	// Note: use slash as separator so we can have dots in interface name (VLANs)
 	DisableIPv6SysctlTemplate    = "net/ipv6/conf/%s/disable_ipv6"
@@ -47,14 +41,15 @@ func ConfigureIface(ifName string, res *current.Result) error {
 		return fmt.Errorf("no interfaces to configure")
 	}
 
+	return nil
 	// get the link
-	link,err := netlink.LinkByName(ifName)
-	if err != nil {
-		return fmt.Errorf("failed to lookup %q: %v", ifName, err)
-	}
-
-	for _,ipConfig := range res.IPs {
-		if ipConfig.Interface == nil || *ipConfig.Interface !=
-	}
+	//link,err := netlink.LinkByName(ifName)
+	//if err != nil {
+	//	return fmt.Errorf("failed to lookup %q: %v", ifName, err)
+	//}
+	//
+	//for _,ipConfig := range res.IPs {
+	//	if ipConfig.Interface == nil || *ipConfig.Interface !=
+	//}
 
 }

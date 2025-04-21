@@ -20,9 +20,11 @@ func (a *IPAllocator) Get(id string, ifname string, requestedIP net.IP) (*curren
 	a.store.Lock()
 	defer a.store.Unlock()
 
-	if requestedIP != nil {
-		// check if the ip is exists
+	//if requestedIP != nil {
+	//	// check if the ip is exists
+	//
+	//	a.store.Reserve(id, ifname, requestedIP, a.ra)
+	//}
 
-		a.store.Reserve(id, ifname, requestedIP, a.ra)
-	}
+	return nil, nil
 }
