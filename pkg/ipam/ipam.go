@@ -3,11 +3,13 @@ package ipam
 import (
 	"context"
 	"fmt"
-	current "github.com/containernetworking/cni/pkg/types/100"
 	"time"
 
+	current "github.com/containernetworking/cni/pkg/types/100"
 	"github.com/containernetworking/cni/pkg/invoke"
 	"github.com/containernetworking/cni/pkg/types"
+	"github.com/vishvananda/netlink"
+	"k8s.io/klog/v2"
 )
 
 func ExecAdd(plugin string, netconf []byte) (types.Result, error) {

@@ -20,9 +20,13 @@ $(PLUGINS):
 clean:
 	@rm -rf $(BIN_DIR)
 
+# Run all unit tests
+test:
+	go test -v ./...
+
 cp:
 	make bridge
 	mv bin/bridge bin/bridge_per
 	minikube cp bin/bridge_per /opt/cni/bin/
 
-.PHONY: all $(PLUGINS) clean
+.PHONY: all $(PLUGINS) clean test
