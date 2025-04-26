@@ -6,7 +6,6 @@ import (
 	"net"
 	"os"
 	"path/filepath"
-	"simple-cni/plugins/ipam/backend"
 	"strings"
 )
 
@@ -15,11 +14,10 @@ type Store struct {
 	mutex   *filemutex.FileMutex
 }
 
-var _ backend.Store = &Store{}
-
 const (
-	defaultDataDir = "/var/lib/cni/networks"
-	LineBreak      = "\r\n"
+	defaultDataDir   = "/var/lib/cni/networks"
+	LineBreak        = "\r\n"
+	lastIpFilePrefix = "last_reserved_ip"
 )
 
 func New(subnet, dataDir string) (*Store, error) {
@@ -44,7 +42,7 @@ func New(subnet, dataDir string) (*Store, error) {
 
 // Reserve returns if success to create file
 // create a file,default as `/var/lib/cni/networks/<subnet>/<ip>`
-func (s *Store) Reserve(id string, ifname string, ip net.IP, rangeID string) (bool, error) {
+func (s *Store) Reserve(id string, ifname string, ip net.IP) (bool, error) {
 	// Create a file
 	f, err := os.OpenFile(filepath.Join(s.dataDir, ip.String()), os.O_RDWR|os.O_EXCL|os.O_CREATE, 0o600)
 	if os.IsExist(err) {
@@ -59,6 +57,9 @@ func (s *Store) Reserve(id string, ifname string, ip net.IP, rangeID string) (bo
 	if _, err := f.WriteString(strings.TrimSpace(id) + LineBreak + ifname); err != nil {
 		return false, err
 	}
+
+	// store it in latest reserve ip file
+	lastFile, err := os.OpenFile(filepath.Join(s.dataDir, lastIpFilePrefix), os.O_RDWR|os.O_EXCL|os.O_CREATE, 0o600)
 
 	return true, nil
 }

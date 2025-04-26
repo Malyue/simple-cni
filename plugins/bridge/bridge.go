@@ -39,21 +39,21 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return fmt.Errorf("failed to setup veth : %v", err)
 	}
 
-	result := &current.Result{
-		CNIVersion: current.ImplementedSpecVersion,
-		Interfaces: []*current.Interface{
-			brInterface,
-			hostVeth,
-			contVeth,
-		},
-		//Interfaces: []*current.Interface{
-		//	brInterface,
-		//	hostVeth,
-		//	contVeth,
-		//},
-	}
-
-	return types.PrintResult(result, current.ImplementedSpecVersion)
+	//		result := &current.Result{
+	//		CNIVersion: current.ImplementedSpecVersion,
+	//		Interfaces: []*current.Interface{
+	//			brInterface,
+	//			hostVeth,
+	//			contVeth,
+	//		},
+	//		//Interfaces: []*current.Interface{
+	//		//	brInterface,
+	//		//	hostVeth,
+	//		//	contVeth,
+	//		//},
+	//	}
+	//
+	//	return types.PrintResult(result, current.ImplementedSpecVersion)
 
 	// allocate ip from ipam
 	// valid ipam type
@@ -79,7 +79,7 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return err
 	}
 
-	result = &current.Result{
+	result := &current.Result{
 		CNIVersion: current.ImplementedSpecVersion,
 		Interfaces: []*current.Interface{
 			brInterface,
